@@ -15,6 +15,24 @@ public class NodeList {
 		return size;
 	}
 	
+	public void reverseNodeList()
+	{
+		Node current = firstNode;
+		Node previous = null;
+		Node next = null;
+		
+		//iterate from the first node
+		while(current != null)
+		{
+			next = current.getNextNode(); //get the next from current node 
+			current.setNextNode(previous); // set our previous node to the next of this current node
+			previous = current;//now  the previous is the current because current will change to the next one
+			current = next; 
+		}
+		firstNode = previous;
+	}
+	
+	
 	public boolean updateNode(int index, Object data)
 	{
 		//get the node 
@@ -127,6 +145,8 @@ public class NodeList {
 	public void showNodes()
 	{
 		Node temp = firstNode;
+		
+		//iterate in the nodes and print their data
 		for (int i = 0; temp != null; i++) {
 			System.out.println("The data of element: ["+i+"] is ["+temp.getNodeData()+"]");
 			temp = temp.getNextNode();

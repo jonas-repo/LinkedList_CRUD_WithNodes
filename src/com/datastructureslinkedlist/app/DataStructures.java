@@ -3,6 +3,7 @@ package com.datastructureslinkedlist.app;
 import java.util.Scanner;
 
 import com.datastructureslinkedlist.model.NodeList;
+import com.datastructureslinkedlist.model.SaveData;
 
 /*
  * @author Jonas
@@ -46,6 +47,8 @@ public class DataStructures {
 						System.out.println("To show the list size press:       [4]");
 						System.out.println("To delete an element of the list:  [5]");
 						System.out.println("To update an element of the list:  [6]");
+						System.out.println("To reverse all nodes list values:  [7]");
+						System.out.println("To save all your nodes list     :  [8]");
 						try {
 							optionNumber = input.nextInt();
 							switch(optionNumber)
@@ -106,6 +109,13 @@ public class DataStructures {
 							    		System.out.println("nothing changed!!");
 							    	}						    	
 							    	
+							    	break;
+							    case 7:
+							    	nodeList.reverseNodeList();
+							    	System.out.println("List reversed!!");
+							    	break;
+							    case 8:							    	
+							    	System.out.println(SaveData.saveAll(nodeList.nodeDataAtIndex(0)));
 							    	break;
 							    default:
 							    	System.out.println("That option does not exist!");
