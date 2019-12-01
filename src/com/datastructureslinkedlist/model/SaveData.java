@@ -1,9 +1,16 @@
 package com.datastructureslinkedlist.model;
 
 import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 
@@ -26,10 +33,11 @@ public class SaveData {
 			while(node != null)
 			{
 				buferW.write("	{ \n");
-				buferW.write("		\"Node"+count+"\":\""+node.getNodeData()+"\"\n");
+				buferW.write("		\"nodeData\":\""+node.getNodeData()+"\"\n");
 				if(node.hasNextNode())
 				{
-					buferW.write("	},\n");
+					
+				buferW.write("	},\n");
 				}
 				else
 				{
@@ -75,4 +83,36 @@ public class SaveData {
 		return "Saved in: "+System.getProperty("user.dir");
 	}
 	
+	public static NodeList readAll()
+	{		
+		NodeList nodeList = new NodeList();
+			String nodesData;
+			try {
+				nodesData = Files.readString(Path.of(System.getProperty("user.dir")+"\\nodes.json"));
+				if(nodesData == null || nodesData.isEmpty())
+				{
+					return null;
+				}
+				else
+				{
+					String[] separateNodes = nodesData.split("\\{"); //split strings by {
+					Pattern pattern = Pattern.compile("\"nodeData\":\"(.*?)\""); //get the pattern nodeData:everything
+					Matcher matcher = null;
+					
+					for (int i = 0; i < separateNodes.length; i++) 
+					{
+						matcher = pattern.matcher(separateNodes[i]);//search the pattern and store the values
+						if (matcher.find())
+						{
+						    nodeList.add(matcher.group(1)); //get only the data from the search and store it in a node inside the nodeList
+						}	
+					}				
+					return nodeList;
+				}						
+			} catch (Exception e) {
+				
+				return null;
+			}
+									
+	}
 }

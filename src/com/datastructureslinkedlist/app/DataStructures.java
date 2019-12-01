@@ -15,12 +15,15 @@ public class DataStructures {
 		//objects initialization
 				String option = "y";
 				Scanner input = new Scanner(System.in);
-				NodeList nodeList = new NodeList();
+				NodeList nodeList = null;
 				
 				//variables declaration
 				int optionNumber = 0;
 				int index = 0;
-				
+				nodeList = SaveData.readAll();
+				if(nodeList == null) {
+					nodeList = new NodeList();
+				}
 				//process to create the menu
 				do 
 				{
@@ -125,6 +128,7 @@ public class DataStructures {
 						}
 						catch(Exception e) {
 							System.err.println("Please verify your input");
+							e.printStackTrace();
 						}
 						finally {
 							optionNumber = 0;
